@@ -200,7 +200,7 @@ function getVersions(
     .filter(function(availableEnvironment) {
       // Return true if there are no mismatching keys
       return !Object.keys(environment)
-        .filter(key => key !== 'version')
+        .filter(key => key !== 'version' && key !== 'browserVersion')
         .some(envKey => {
           const key = <keyof NormalizedEnvironment>envKey;
           return (
