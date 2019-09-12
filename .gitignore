@@ -16,3 +16,4 @@ benchmark.json
 baselines.json
 baseline.json
 *.tgz
+.nodenv-vars
