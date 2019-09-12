@@ -142,20 +142,16 @@ function resolveVersionAlias(version: string, availableVersions: string[]) {
   if (pieces[0] === 'latest') {
     // Only consider numeric versions; we don't want 'beta' or 'dev'
     const numericVersions = availableVersions
-      .filter(version => {
-        return !isNaN(Number(version));
-      })
-      .sort((a, b) => {
-        return Number(a) - Number(b);
-      });
+      .filter(version => !isNaN(Number(version)))
+      .sort((a, b) => Number(a) - Number(b));
 
     let offset = pieces.length === 2 ? Number(pieces[1]) : 0;
     if (offset > numericVersions.length) {
-      let message =
-        "Can't get " + version + '; ' + numericVersions.length + ' version';
-      message +=
-        (numericVersions.length !== 1 ? 's are' : ' is') + ' available';
-      throw new Error(message);
+      throw new Error(
+        `Can't get ${version}; ${numericVersions.length} version${
+          numericVersions.length !== 1 ? 's are' : ' is'
+        } available`
+      );
     }
 
     return numericVersions[numericVersions.length - 1 - offset];
@@ -255,8 +251,7 @@ function resolveVersions(
         throw new Error(
           `Unable to resolve version "${version}" for ${
             environment.browserName
-          }. Are you using the ` +
-            'proper browser and platform names for the tunnel?'
+          }. Are you using the proper browser and platform names for the tunnel?`
         );
       }
       return resolved;
